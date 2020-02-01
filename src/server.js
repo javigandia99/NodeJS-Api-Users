@@ -18,13 +18,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // simple route
 app.get("/", (req, res) => {
-  res.json({ message: "Welcome to access to database application." });
+  res.json({ message: "Welcome to access to database application. Put /api/users in URL. Put /api/users/username to retrieve only one" });
 });
 
-app.get('/api/users', (req, res) => {
-  console.log(` User en server: ${User.findAll()}`)
-  User.findAll().then(users => res.json(users))
-})
+app.get("/api", (req, res) => {
+  res.json({ message: "Put /users in URL too" });
+});
 
 require("./routes")(app);
 

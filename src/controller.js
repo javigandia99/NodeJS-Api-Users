@@ -34,13 +34,27 @@ exports.create = (req, res) => {
 exports.findAll = (req, res) => {
   console.log("DENTRO DE LA FUNCION DE FIND ALL")
   User.findAll().then(users => {
-      res.send(users);
-      console.log(users)
-    })
+    res.send(users);
+    console.log(users)
+  })
     .catch(err => {
       res.status(500).send({
         message:
           err.message || "Some error occurred while retrieving users."
+      });
+    });
+};
+
+exports.findOne = (req, res) => {
+  const username = req.params.username;
+
+  User.findByPk(username)
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error retrieving User with username=" + username
       });
     });
 };
@@ -73,13 +87,13 @@ exports.update = (req, res) => {
 exports.delete = (req, res) => {
   const username = req.params.username;
 
-  Tutorial.destroy({
+  User.destroy({
     where: { username: username }
   })
     .then(num => {
       if (num == 1) {
         res.send({
-          message: "User was deleted successfully!"
+          message: `${username} was deleted successfully!`
         });
       } else {
         res.send({

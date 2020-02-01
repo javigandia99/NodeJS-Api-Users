@@ -4,33 +4,33 @@ const Sequelize = require("sequelize");
 
 
 const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
-    host: dbConfig.HOST,
-    dialect: dbConfig.Dialect,
-    operatorsAliases: false,
-    logging: false,
+  host: dbConfig.HOST,
+  dialect: dbConfig.Dialect,
+  operatorsAliases: false,
+  logging: false,
 });
 
 //connection authenticate
 sequelize
-    .authenticate()
-    .then(() => {
-        console.log('Connection has been established successfully. Sequalize');
-    })
-    .catch(err => {
-        console.error('Unable to connect to the database:',err);
-    });
+  .authenticate()
+  .then(() => {
+    console.log('Connection has been established successfully. Sequalize');
+  })
+  .catch(err => {
+    console.error('Unable to connect to the database:', err);
+  });
 
 const db = {};
 
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
-console.log(`${model}`)
 const User = model(sequelize, Sequelize);
 
 sequelize.sync({ force: false })
   .then(() => {
-    console.log(`Database & tables created!`)
+    console.log(`Load Database & tables!`)
   })
+
 module.exports = User;
 

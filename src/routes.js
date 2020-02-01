@@ -8,14 +8,17 @@ module.exports = app => {
     //Update user 
     router.put("/:username", user.update)
 
-    //Delete user by username
-    router.delete("/:username", user.delete);
-
     // Retrieve all users
     router.get("/", user.findAll);
+
+    // Retrieve 1 user by username
+    router.get("/:username", user.findOne);
+
+    //Delete user by username
+    router.delete("/:username", user.delete);
 
     //Delete all users
     router.delete("/", user.deleteAll);
 
-    app.use('/users', router);
+    app.use('/api/users', router);
 };
