@@ -3,10 +3,9 @@ module.exports = (sequelize, Sequelize) => {
         username: { type: Sequelize.STRING, primaryKey: true },
         password: Sequelize.STRING,
         description: Sequelize.STRING
-    },
-        {
-            freezeTableName:true
-        });
+    },{
+        timestamps: false,
+    });
 
     return User;
 };

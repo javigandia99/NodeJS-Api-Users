@@ -5,8 +5,8 @@
   "main": "src/index.js",
   "scripts": {
     "server": "nodemon src/server.js",
-    "start": "nodemon src/index.js",
-    "dev": "npm run con & npm run start"
+    "start": "nodemon src/sequelize.js",
+    "dev": "npm run server & npm run start"
   },
   "author": "jgandia",
   "license": "MIT",

@@ -1,6 +1,5 @@
-const db = require("./index.js");
-const User = db.user;
-
+const User = require('./sequelize');
+console.log(`User en controller:${User.findAll()}`)
 //Create new user
 exports.create = (req, res) => {
   // Validate request
@@ -34,10 +33,9 @@ exports.create = (req, res) => {
 //Find All
 exports.findAll = (req, res) => {
   console.log("DENTRO DE LA FUNCION DE FIND ALL")
-  User.findAll()
-    .then(data => {
-      res.send(data);
-      console.log(data)
+  User.findAll().then(users => {
+      res.send(users);
+      console.log(users)
     })
     .catch(err => {
       res.status(500).send({
@@ -56,17 +54,42 @@ exports.update = (req, res) => {
     .then(num => {
       if (num == 1) {
         res.send({
-          message: "Tutorial was updated successfully."
+          message: "User was updated successfully."
         });
       } else {
         res.send({
-          message: `Cannot update User with username=${username}. Maybe Tutorial was not found or req.body is empty!`
+          message: `Cannot update User with username=${username}. Maybe user was not found or req.body is empty!`
         });
       }
     })
     .catch(err => {
       res.status(500).send({
         message: "Error updating user with username=" + username
+      });
+    });
+};
+
+//Delete by username
+exports.delete = (req, res) => {
+  const username = req.params.username;
+
+  Tutorial.destroy({
+    where: { username: username }
+  })
+    .then(num => {
+      if (num == 1) {
+        res.send({
+          message: "User was deleted successfully!"
+        });
+      } else {
+        res.send({
+          message: `Cannot delete user with username=${username}. Maybe user was not found!`
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Could not delete user with username=" + username
       });
     });
 };
